@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -18,28 +19,29 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class HostEntity implements Serializable {
 
 	private static final long serialVersionUID = -978321572403501403L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="host_seq")
+	@SequenceGenerator(name = "host_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "host_seq")
 	private long id;
 
-	@Column(unique=true)
+	@Column(unique = true)
 	private String name;
 
-	@Column(unique=true)
+	@Column(unique = true)
 	private String ip;
-	
-	@Column(columnDefinition = "boolean default false")
-	private Boolean isAlive;
-	
+
+	@Column()
+	private String isAlive = "false";
+
 	@Column()
 	private LocalDateTime lastAliveTime;
-	
-    @CreatedDate
-    private LocalDateTime createdDate;
 
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
+	@CreatedDate
+	private LocalDateTime createdDate;
+
+	@LastModifiedDate
+	private LocalDateTime modifiedDate;
 
 	public long getId() {
 		return id;
@@ -65,11 +67,11 @@ public class HostEntity implements Serializable {
 		this.ip = ip;
 	}
 
-	public Boolean getIsAlive() {
+	public String getIsAlive() {
 		return isAlive;
 	}
 
-	public void setIsAlive(Boolean isAlive) {
+	public void setIsAlive(String isAlive) {
 		this.isAlive = isAlive;
 	}
 
@@ -96,7 +98,5 @@ public class HostEntity implements Serializable {
 	public void setModifiedDate(LocalDateTime modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-    
-    
-	
+
 }
