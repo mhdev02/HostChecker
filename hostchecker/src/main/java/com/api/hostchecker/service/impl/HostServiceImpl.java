@@ -1,21 +1,22 @@
 package com.api.hostchecker.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.api.hostchecker.common.Checker;
 import com.api.hostchecker.dto.HostDto;
 import com.api.hostchecker.entity.HostEntity;
 import com.api.hostchecker.repository.HostRepository;
 import com.api.hostchecker.service.HostService;
+import com.api.hostchecker.worker.AliveChecker;
 
 public class HostServiceImpl implements HostService {
 	
 	@Autowired 
-	Checker checker;
+	AliveChecker checker;
 
 	@Autowired
 	HostRepository hostRepository;
@@ -28,8 +29,15 @@ public class HostServiceImpl implements HostService {
 
 	@Override
 	public List<HostDto> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<HostDto> returnValue = new ArrayList<>();
+		ModelMapper modelMapper = new ModelMapper();
+		
+		List<HostEntity> hosts = hostRepository.findAll();
+		
+		for (HostEntity host: hosts) {
+			returnValue.add(modelMapper.map(host, HostDto.class));
+		}
+		return returnValue;
 	}
 
 	@Override
@@ -57,10 +65,10 @@ public class HostServiceImpl implements HostService {
 		hostEntity.setIp(host.getIp());
 		
 		String result = checker.aliveCheck(ip);
-		if (result == "Alive") {
+		if (result.equals("Alive")) {
 			hostEntity.setIsAlive(true);
 			hostEntity.setLastAliveTime(LocalDateTime.now());
-		} else if (result == "Unavailable") {
+		} else if (result.equals("Unavailable")) {
 			hostEntity.setIsAlive(false);
 		}
 		
