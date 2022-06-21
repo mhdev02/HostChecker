@@ -2,8 +2,11 @@ CREATE SEQUENCE IF NOT EXISTS host_seq;
 
 CREATE TABLE IF NOT EXISTS hosts (
 
-host_id BIGINT NOT NULL DEFAULT nextval('host_seq') PRIMARY KEY
+host_id BIGINT NOT NULL DEFAULT nextval('host_seq') PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
-ip VARCHAR(100) NOT NULL
-
+ip VARCHAR(100) NOT NULL,
+isAlive VARCHAR(10) NOT NULL,
+lastAliveTime DATETIME,
+createdDate DATETIME,
+modifiedDate DATETIME
 );
