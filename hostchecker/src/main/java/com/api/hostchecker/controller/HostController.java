@@ -84,7 +84,7 @@ public class HostController {
 	}
 
 	@DeleteMapping(path = "/{ip}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public StatusModel deleteItem(@PathVariable String ip) {
+	public StatusModel deleteHost(@PathVariable String ip) {
 		StatusModel returnValue = new StatusModel();
 		returnValue.setName(RequestName.DELETE.name());
 
