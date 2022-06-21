@@ -8,6 +8,8 @@ public class HostRest {
 	private String ip;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
+	private String isAlive;
+	private LocalDateTime lastAliveTime;
 
 	public String getName() {
 		return name;
@@ -39,6 +41,22 @@ public class HostRest {
 
 	public void setModifiedDate(LocalDateTime modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+	
+	public String getIsAlive() {
+		return isAlive;
+	}
+
+	public void setIsAlive(String isAlive) {
+		this.isAlive = isAlive;
+	}
+
+	public LocalDateTime getLastAliveTime() {
+		return lastAliveTime;
+	}
+
+	public void setLastAliveTime(LocalDateTime lastAliveTime) {
+		this.lastAliveTime = lastAliveTime;
 	}
 
 }
