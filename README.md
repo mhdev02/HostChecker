@@ -43,10 +43,10 @@ checkIfAvailable1라고 명칭을 정하여 둘 중 한 개라도 "Alive"가 리
             {
                 "name": "naver",
                 "ip": "223.130.200.107",
-                "createdDate": "2022-06-24T18:50:00", 
-                "modifiedDate": "2022-06-24T18:50:00", 
-                "isAlive": "false", 
-                "lastAliveTime": null
+                "createdDate": "2022-06-24T21:20:00",
+                "modifiedDate": "2022-06-24T22:33:02",
+                "isAlive": "true",
+                "lastAliveTime": "2022-06-24T22:33:02"
             }
 
         Response Code
@@ -78,20 +78,28 @@ checkIfAvailable1라고 명칭을 정하여 둘 중 한 개라도 "Alive"가 리
 
             [
                 {
-                    "name": "EC2",
-                    "ip": "",
-                    "createdDate": "2022-06-24T18:38:35",
-                    "modifiedDate": "2022-06-24T20:59:43",
+                    "name": "naver1",
+                    "ip": "223.130.200.104",
+                    "createdDate": "2022-06-24T21:00:49",
+                    "modifiedDate": "2022-06-24T22:34:24",
                     "isAlive": "true",
-                    "lastAliveTime": "2022-06-24T20:59:43"
+                    "lastAliveTime": "2022-06-24T22:34:24"
+                },
+                {
+                    "name": "naver2",
+                    "ip": "223.130.200.100",
+                    "createdDate": "2022-06-24T21:12:01",
+                    "modifiedDate": "2022-06-24T22:34:22",
+                    "isAlive": "true",
+                    "lastAliveTime": "2022-06-24T22:34:22"
                 },
                 {
                     "name": "naver",
                     "ip": "223.130.200.107",
-                    "createdDate": "2022-06-24T18:50:00",
-                    "modifiedDate": "2022-06-24T18:50:00",
-                    "isAlive": "false",
-                    "lastAliveTime": null
+                    "createdDate": "2022-06-24T21:20:00",
+                    "modifiedDate": "2022-06-24T22:34:23",
+                    "isAlive": "true",
+                    "lastAliveTime": "2022-06-24T22:34:23"
                 }
             ]
 
@@ -125,10 +133,10 @@ checkIfAvailable1라고 명칭을 정하여 둘 중 한 개라도 "Alive"가 리
             {
                 "name": "naverr",
                 "ip": "223.130.200.107",
-                "createdDate": "2022-06-24T18:50:00",
-                "modifiedDate": "2022-06-24T21:15:25.163",
-                "isAlive": "false",
-                "lastAliveTime": null
+                "createdDate": "2022-06-24T21:20:00",
+                "modifiedDate": "2022-06-24T22:36:16.004",
+                "isAlive": "true",
+                "lastAliveTime": "2022-06-24T22:36:16.004"
             }
 
         Response Code
@@ -191,12 +199,12 @@ checkIfAvailable1라고 명칭을 정하여 둘 중 한 개라도 "Alive"가 리
         Response Body
 
             {
-                "name":  "naver",
+                "name": "naver",
                 "ip": "223.130.200.107",
-                "createdDate": "2022-06-24T21:20:00.721",
-                "modifiedDate": "2022-06-24T21:20:00.721",
-                "isAlive": "false",
-                "lastAliveTime": null 
+                "createdDate": "2022-06-24T22:37:40.077",
+                "modifiedDate": "2022-06-24T22:37:40.077",
+                "isAlive": "true",
+                "lastAliveTime": "2022-06-24T22:37:40.076"
             }
 
         Response Code
