@@ -10,11 +10,9 @@ public interface HostService {
 	
 	List<HostDto> getAll();
 
-	HostDto getHost(String ip);
+	HostDto getHost(String ipOrName);
 	
-	HostDto updateHostByName(String name);
+	HostDto updateHost(String ipOrName, HostDto hostDto);
 	
-	HostDto updateHostByIp(String ip, HostDto hostDto);
-	
-	void deleteHost(String ip);
+	void deleteHost(String ipOrName);
 }
