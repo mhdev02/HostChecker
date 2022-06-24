@@ -5,27 +5,197 @@
 CommandLineRunner 인터페이스를 이용하여 스프링 부트 앱 구동 시 등록된 호스트 IP를 이용해서 
 InetAddress.isReachable() 결과값을 데이터베이스에 업데이트. 이때, 동시성(멀티 쓰레딩)을 활용
 
+modified_date 컬럼이 가장 오래된 것부터 ThreadWorker.java에서 호스트 정보 업데이트하도록 변경
+(Repository에서 nativeQuery 사용)
+
+
 ## REST API 설명
 
-    GET /hosts/{ip} 
+    GET /hosts/{ipOrName} 
 
-        주어진 ip의 alive 상태 확인 
+        설명 
+
+            ip 혹은 (host)name이 주어지면 해당 호스트 정보를 조회
+
+        Curl 
+
+            curl -X GET --header 'Accept: application/json' 'http://localhost:8080/hosts/naver'
+
+        Request URL 
+
+            http://localhost:8080/hosts/naver
+
+        Request Headers 
+
+            {
+                "Accept: "application/json"
+            }
+
+        Response Body
+
+            {
+                "name": "naver",
+                "ip": "223.130.200.107",
+                "createdDate": "2022-06-24T18:50:00", 
+                "modifiedDate": "2022-06-24T18:50:00", 
+                "isAlive": "false", 
+                "lastAliveTime": null
+            }
+
+        Response Code
+
+            200
+
 
     GET /hosts
 
-        등록된 모든 호스트의 alive 상태 확인
+        설명 
 
-    POST /hosts { "name": "" , "ip": "" }
+            등록된 모든 호스트의 정보 조회
 
-        호스트 등록
+        Curl 
 
-    PUT /hosts { "name": , "ip" }
+            curl -X GET --header 'Accept: application/json' 'http://localhost:8080/hosts'
 
-        호스트 정보 수정
+        Request URL 
 
-    DELETE /hosts/{ip} { "name": , "ip" }
+            http://localhost:8080/hosts
 
-        ip를 이용해 해당 호스트 삭제
+        Request Headers 
+
+            {
+                "Accept: "application/json"
+            }
+
+        Response Body
+
+            [
+                {
+                    "name": "EC2",
+                    "ip": "",
+                    "createdDate": "2022-06-24T18:38:35",
+                    "modifiedDate": "2022-06-24T20:59:43",
+                    "isAlive": "true",
+                    "lastAliveTime": "2022-06-24T20:59:43"
+                },
+                {
+                    "name": "naver",
+                    "ip": "223.130.200.107",
+                    "createdDate": "2022-06-24T18:50:00",
+                    "modifiedDate": "2022-06-24T18:50:00",
+                    "isAlive": "false",
+                    "lastAliveTime": null
+                }
+            ]
+
+        Response Code
+
+            200
+
+
+    PUT /hosts/{ipOrName}
+
+        설명 
+
+            ip 혹은 (host)name을 이용해 해당 호스트 정보 수정
+
+        Curl 
+
+            curl -X PUT http://localhost:8080/hosts/naver -H 'Content-Type: application/json' --data-raw '{"name": "naverr", "ip": "223.130.200.107"}'
+
+        Request URL 
+
+            http://localhost:8080/hosts/naver
+
+        Request Headers 
+
+            {
+                "Accept: "application/json"
+            }
+
+        Response Body
+
+            {
+                "name": "naverr",
+                "ip": "223.130.200.107",
+                "createdDate": "2022-06-24T18:50:00",
+                "modifiedDate": "2022-06-24T21:15:25.163",
+                "isAlive": "false",
+                "lastAliveTime": null
+            }
+
+        Response Code
+
+            200
+
+
+    DELETE /hosts/{ipOrName} 
+
+        설명 
+
+            ip 혹은 (host)name을 이용해 해당 호스트 삭제
+
+        Curl 
+
+            curl -X DELETE http://localhost:8080/hosts/naverr --header 'Accept: application/json'
+
+        Request URL 
+
+            http://localhost:8080/hosts/naverr
+
+        Request Headers 
+
+            {
+                "Accept: "application/json"
+            }
+
+        Response Body
+
+            {
+                "result": "SUCCESS",
+                "name": "DELETE"
+            }
+
+        Response Code
+
+            200
+
+    
+    POST /hosts
+
+        설명
+
+            호스트 등록
+
+        Curl 
+
+            curl -X POST http://localhost:8080/hosts -H 'Content-Type: application/json' --data-raw '{"name": "naver", "ip": "223.130.200.107"}'
+
+        Request URL 
+
+            http://localhost:8080/hosts
+
+        Request Headers 
+
+            {
+                "Accept: "application/json"
+            }
+
+        Response Body
+
+            {
+                "name":  "naver",
+                "ip": "223.130.200.107",
+                "createdDate": "2022-06-24T21:20:00.721",
+                "modifiedDate": "2022-06-24T21:20:00.721",
+                "isAlive": "false",
+                "lastAliveTime": null 
+            }
+
+        Response Code
+
+            200
+
 
 ## 참고
 
