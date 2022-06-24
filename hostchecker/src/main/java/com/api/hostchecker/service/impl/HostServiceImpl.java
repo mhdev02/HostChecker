@@ -62,6 +62,19 @@ public class HostServiceImpl implements HostService {
 		}
 		return returnValue;
 	}
+	
+	@Override
+	public List<HostDto> getAllOrderedByModifiedDate() {
+		List<HostDto> returnValue = new ArrayList<>();
+		ModelMapper modelMapper = new ModelMapper();
+
+		List<HostEntity> hosts = hostRepository.getAllOrderedByModifiedDate();
+
+		for (HostEntity host : hosts) {
+			returnValue.add(modelMapper.map(host, HostDto.class));
+		}
+		return returnValue;
+	}
 
 	@Override
 	public HostDto getHost(String ipOrName) {
