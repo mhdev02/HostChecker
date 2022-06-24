@@ -9,6 +9,8 @@ public interface HostService {
 	HostDto createHost(HostDto host);
 	
 	List<HostDto> getAll();
+	
+	List<HostDto> getAllOrderedByModifiedDate();
 
 	HostDto getHost(String ipOrName);
 	
