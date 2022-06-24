@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS hosts (
 	id INT NOT NULL default (next value for host_seq) PRIMARY KEY,
 	name VARCHAR(100) NOT NULL UNIQUE,
 	ip VARCHAR(100) NOT NULL UNIQUE,
-	isAlive VARCHAR(10) NOT NULL,
-	lastAliveTime DATETIME,
-	createdDate DATETIME,
-	modifiedDate DATETIME
+	is_alive VARCHAR(10) NOT NULL DEFAULT 'false',
+	last_alive_time DATETIME,
+	created_date DATETIME,
+	modified_date DATETIME
 );
