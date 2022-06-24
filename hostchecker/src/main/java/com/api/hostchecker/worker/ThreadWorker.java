@@ -23,7 +23,7 @@ public class ThreadWorker {
 	public void monitor() {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 		Runnable runnable = () -> {
-			List<HostDto> hosts = hostService.getAll();
+			List<HostDto> hosts = hostService.getAllOrderedByModifiedDate();
 			for (HostDto host : hosts) {
 				String ipAddr = host.getIp();
 				hostService.updateHost(ipAddr, host);
