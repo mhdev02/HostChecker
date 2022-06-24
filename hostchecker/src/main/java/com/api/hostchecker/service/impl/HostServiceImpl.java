@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,14 @@ public class HostServiceImpl implements HostService {
 
 		ModelMapper modelMapper = new ModelMapper();
 		HostEntity hostEntity = modelMapper.map(host, HostEntity.class);
+		
+		String result = aliveChecker.aliveCheck(host.getIp());
+		if (result.equals("Alive")) {
+			hostEntity.setIsAlive("true");
+			hostEntity.setLastAliveTime(LocalDateTime.now());
+		} else if (result.equals("Unavailable")) {
+			hostEntity.setIsAlive("false");
+		}
 
 		HostEntity savedHostEntity = hostRepository.save(hostEntity);
 
@@ -54,10 +64,13 @@ public class HostServiceImpl implements HostService {
 	}
 
 	@Override
-	public HostDto getHost(String ip) {
+	public HostDto getHost(String ipOrName) {
 
-		HostEntity hostEntity = hostRepository.findByIp(ip);
+		HostEntity hostEntity = hostRepository.findByIp(ipOrName);
 
+		if (hostEntity == null) {
+			hostEntity = hostRepository.findByName(ipOrName);
+		}
 		if (hostEntity == null) {
 			throw new RuntimeException();
 		}
@@ -68,16 +81,13 @@ public class HostServiceImpl implements HostService {
 	}
 
 	@Override
-	public HostDto updateHostByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public HostDto updateHost(String ipOrName, HostDto host) {
 
-	@Override
-	public HostDto updateHostByIp(String ip, HostDto host) {
-
-		HostEntity hostEntity = hostRepository.findByIp(ip);
-
+		HostEntity hostEntity = hostRepository.findByIp(ipOrName);
+		
+		if (hostEntity == null) {
+			hostEntity = hostRepository.findByName(ipOrName);
+		}
 		if (hostEntity == null) {
 			throw new RuntimeException();
 		}
@@ -85,7 +95,7 @@ public class HostServiceImpl implements HostService {
 		hostEntity.setName(host.getName());
 		hostEntity.setIp(host.getIp());
 
-		String result = aliveChecker.aliveCheck(ip);
+		String result = aliveChecker.aliveCheck(host.getIp());
 		if (result.equals("Alive")) {
 			hostEntity.setIsAlive("true");
 			hostEntity.setLastAliveTime(LocalDateTime.now());
@@ -100,10 +110,15 @@ public class HostServiceImpl implements HostService {
 		return returnValue;
 
 	}
-
+	
+	@Transactional
 	@Override
-	public void deleteHost(String ip) {
-		HostEntity hostEntity = hostRepository.findByIp(ip);
+	public void deleteHost(String ipOrName) {
+		HostEntity hostEntity = hostRepository.findByIp(ipOrName);
+		
+		if (hostEntity == null) {
+			hostEntity = hostRepository.findByName(ipOrName);
+		}
 
 		if (hostEntity == null) {
 			throw new RuntimeException();
