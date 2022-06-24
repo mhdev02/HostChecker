@@ -57,38 +57,38 @@ public class HostController {
 		return returnValue;
 	}
 
-	@GetMapping(path = "/{ip}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public HostRest getHost(@PathVariable String ip) {
+	@GetMapping(path = "/{ipOrName}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public HostRest getHostByIp(@PathVariable String ipOrName) {
 
 		ModelMapper modelMapper = new ModelMapper();
 
-		HostDto hostDto = hostService.getHost(ip);
+		HostDto hostDto = hostService.getHost(ipOrName);
 
 		HostRest returnValue = modelMapper.map(hostDto, HostRest.class);
 
 		return returnValue;
 	}
 
-	@PutMapping(path = "/{ip}", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+	@PutMapping(path = "/{ipOrName}", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public HostRest updateHost(@PathVariable String ip, @RequestBody HostRequestModel hostInfo) {
+	public HostRest updateHost(@PathVariable String ipOrName, @RequestBody HostRequestModel hostInfo) {
 
 		ModelMapper modelMapper = new ModelMapper();
 
 		HostDto hostDto = modelMapper.map(hostInfo, HostDto.class);
 
-		HostDto updatedHost = hostService.updateHostByIp(hostDto.getIp(), hostDto);
+		HostDto updatedHost = hostService.updateHost(hostDto.getIp(), hostDto);
 		HostRest returnValue = modelMapper.map(updatedHost, HostRest.class);
 
 		return returnValue;
 	}
 
-	@DeleteMapping(path = "/{ip}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public StatusModel deleteHost(@PathVariable String ip) {
+	@DeleteMapping(path = "/{ipOrName}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public StatusModel deleteHost(@PathVariable String ipOrName) {
 		StatusModel returnValue = new StatusModel();
 		returnValue.setName(RequestName.DELETE.name());
 
-		hostService.deleteHost(ip);
+		hostService.deleteHost(ipOrName);
 
 		returnValue.setResult(RequestStatus.SUCCESS.name());
 		return returnValue;
