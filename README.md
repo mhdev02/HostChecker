@@ -10,7 +10,8 @@ InetAddress.isReachable() 결과값을 데이터베이스에 업데이트. 이�
 
 https://linked2ev.github.io/database/2021/04/15/MariaDB-3.-MariaDB-%EC%84%A4%EC%B9%98-for-Mac/
 
-    기존 homebrew로 mysql 설치된 상태에서 제거 후 mariadb 설치하고 connection 관련 에러 발생
+    기존 homebrew로 mysql 설치된 상태에서 제거 후 mariadb 설치하고 mysql.sock 관련 에러 발생
+    (서버 실행이 안 되어 있거나, my.cnf, symbolic link 경로 등과 관련된 문제라고 함)
     위 링크 참고해서 해결
 
     brew services stop mysql (mariadb)
