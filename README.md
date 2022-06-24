@@ -5,8 +5,11 @@
 CommandLineRunner 인터페이스를 이용하여 스프링 부트 앱 구동 시 등록된 호스트 IP를 이용해서 
 InetAddress.isReachable() 결과값을 데이터베이스에 업데이트. 이때, 동시성(멀티 쓰레딩)을 활용
 
-modified_date 컬럼이 가장 오래된 것부터 ThreadWorker.java에서 호스트 정보 업데이트하도록 변경
-(Repository에서 nativeQuery 사용)
+modified_date 컬럼값이 가장 오래된 것부터 ThreadWorker.java에서 호스트 정보 업데이트하도록 변경(Repository에서 nativeQuery 사용)
+
+https://stackoverflow.com/questions/4779367/problem-with-isreachable-in-inetaddress-class를 참고해서 
+AliveChecker.java에 checkIfAvailable2라는 메서드를 만들고 기존 InetAddress.isReachable()를 이용한 메서드는 
+checkIfAvailable1라고 명칭을 정하여 둘 중 한 개에서 "Alive"가 리턴되면 "Alive"인 것으로 정함
 
 
 ## REST API 설명
@@ -225,5 +228,5 @@ https://linked2ev.github.io/database/2021/04/15/MariaDB-3.-MariaDB-%EC%84%A4%EC%
 
     
     nslookup naver.com과 nslookup google.com을 사용하여 나온 결과값 '223.130.195.200', '142.250.207.46'을
-    InetAddress.getByName()에 대입하여 나오는 결과값은 false이고 현재 개인적으로 사용하고 있는 AWS EC2 서버 아이피를 사용하면
+    InetAddress.getByName(아이피 주소).isReachable(1000)에 대입하여 나오는 결과값은 false이고 현재 개인적으로 사용하고 있는 AWS EC2 서버 아이피를 사용하면
     true 결과값이 나옴
