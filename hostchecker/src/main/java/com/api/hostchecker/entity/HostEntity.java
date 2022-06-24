@@ -11,12 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.DynamicInsert;
 
+@DynamicInsert
 @Entity
 @Table(name = "hosts")
-public class HostEntity implements Serializable {
+public class HostEntity extends BaseTimeEntity implements Serializable {
 
 	private static final long serialVersionUID = -978321572403501403L;
 
@@ -30,18 +30,12 @@ public class HostEntity implements Serializable {
 
 	@Column(unique = true)
 	private String ip;
-
+	
 	@Column()
 	private String isAlive = "false";
 
 	@Column()
 	private LocalDateTime lastAliveTime;
-
-	@CreatedDate
-	private LocalDateTime createdDate;
-
-	@LastModifiedDate
-	private LocalDateTime modifiedDate;
 
 	public long getId() {
 		return id;
@@ -81,22 +75,6 @@ public class HostEntity implements Serializable {
 
 	public void setLastAliveTime(LocalDateTime lastAliveTime) {
 		this.lastAliveTime = lastAliveTime;
-	}
-
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public LocalDateTime getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(LocalDateTime modifiedDate) {
-		this.modifiedDate = modifiedDate;
 	}
 
 }
