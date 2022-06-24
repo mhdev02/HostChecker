@@ -11,5 +11,7 @@ public interface HostRepository extends CrudRepository<HostEntity, Long> {
 	List<HostEntity> findAll();
 
 	HostEntity findByIp(String ip);
+	
+	HostEntity findByName(String name);
 
 }
