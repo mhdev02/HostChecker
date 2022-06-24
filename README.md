@@ -1,5 +1,9 @@
 # HostChecker
 
+<img width="750" alt="1" src="https://user-images.githubusercontent.com/62423408/175544685-366a5b1a-5d54-4cdf-8912-a0ffa409259f.png">
+
+<img width="750" alt="2" src="https://user-images.githubusercontent.com/62423408/175544672-42c94534-28f6-4a7f-af80-67e38071639f.png">
+
 ## 개발 아이디어 
 
 CommandLineRunner 인터페이스를 이용하여 스프링 부트 앱 구동 시 등록된 호스트 IP를 이용해서 
@@ -7,9 +11,9 @@ InetAddress.isReachable() 결과값을 데이터베이스에 업데이트. 이�
 
 modified_date 컬럼값이 가장 오래된 것부터 ThreadWorker.java에서 호스트 정보 업데이트하도록 변경(Repository에서 nativeQuery 사용)
 
-https://stackoverflow.com/questions/4779367/problem-with-isreachable-in-inetaddress-class를 참고해서 
+https://stackoverflow.com/questions/4779367/problem-with-isreachable-in-inetaddress-class 를 참고해서 
 AliveChecker.java에 checkIfAvailable2라는 메서드를 만들고 기존 InetAddress.isReachable()를 이용한 메서드는 
-checkIfAvailable1라고 명칭을 정하여 둘 중 한 개에서 "Alive"가 리턴되면 "Alive"인 것으로 정함
+checkIfAvailable1라고 명칭을 정하여 둘 중 한 개라도 "Alive"가 리턴되면 "Alive"인 것으로 정함
 
 
 ## REST API 설명
@@ -229,4 +233,7 @@ https://linked2ev.github.io/database/2021/04/15/MariaDB-3.-MariaDB-%EC%84%A4%EC%
     
     nslookup naver.com과 nslookup google.com을 사용하여 나온 결과값 '223.130.195.200', '142.250.207.46'을
     InetAddress.getByName(아이피 주소).isReachable(1000)에 대입하여 나오는 결과값은 false이고 현재 개인적으로 사용하고 있는 AWS EC2 서버 아이피를 사용하면
-    true 결과값이 나옴
+    true 결과값이 나옴(개발 아이디어에 두 개의 메서드를 통해 이 문제를 해결하려고 했다고 적어놓음)
+
+
+    Executors.newScheduledThreadPool()을 통해 주기적인 호스트 정보 업데이트를 하다 보니 삭제가 한 번에 안 될 때가 있음
