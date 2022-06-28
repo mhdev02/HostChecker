@@ -2,8 +2,6 @@
 
 <img width="750" alt="1" src="https://user-images.githubusercontent.com/62423408/175544685-366a5b1a-5d54-4cdf-8912-a0ffa409259f.png">
 
-<img width="750" alt="2" src="https://user-images.githubusercontent.com/62423408/175544672-42c94534-28f6-4a7f-af80-67e38071639f.png">
-
 ## 개발 아이디어 
 
 CommandLineRunner 인터페이스를 이용하여 스프링 부트 앱 구동 시 등록된 호스트 IP를 이용해서 
